@@ -517,6 +517,58 @@ footer {
     color: #fff;
 }
 
+.btn-demo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--primary-color);
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-demo:hover {
+    background: var(--primary-color);
+    color: #fff;
+    transform: scale(1.05);
+}
+
+.portfolio-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.project-languages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.lang-tag {
+    background: var(--section-bg);
+    color: var(--primary-color);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.8rem;
+    border-radius: 10px;
+    border: 1px solid var(--primary-light);
+    transition: var(--transition);
+}
+
+.portfolio-card:hover .lang-tag {
+    background: var(--primary-light);
+    border-color: var(--primary-color);
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .hero-content h1 {
