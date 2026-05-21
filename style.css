@@ -416,6 +416,13 @@ nav .container {
     background: var(--section-bg);
 }
 
+.category-title {
+    font-size: 1.4rem;
+    margin: 2.5rem 0 1rem;
+    color: var(--primary-color);
+    text-align: center;
+}
+
 .timeline {
     position: relative;
     max-width: 800px;
