@@ -53,3 +53,140 @@ function toggleSkills(type, element) {
         }
     });
 }
+
+// Mobile nav toggle
+function toggleNav() {
+    document.getElementById('nav-links').classList.toggle('open');
+}
+
+function closeNav() {
+    document.getElementById('nav-links').classList.remove('open');
+}
+
+// Toggle Carteirinha Digital accordion
+function toggleCarteirinha() {
+    const content = document.getElementById('carteirinha-content');
+    const btn = document.querySelector('.volunteer-collapsible-btn');
+    content.classList.toggle('open');
+    btn.classList.toggle('active');
+    btn.setAttribute('aria-expanded', content.classList.contains('open'));
+}
+
+// Google Skills Auto-Update
+const GOOGLE_SKILLS_PROFILE = 'https://www.skills.google/public_profiles/8fea051f-9ecf-4ca9-afc0-d78c95c6553e';
+const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
+
+function extractBadges(html) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const badgeElements = doc.querySelectorAll('.profile-badge');
+    const badges = [];
+
+    badgeElements.forEach(badge => {
+        const img = badge.querySelector('.badge-image img');
+        const title = badge.querySelector('.ql-title-medium');
+        const date = badge.querySelector('.ql-body-medium');
+        if (img && title) {
+            badges.push({
+                imgSrc: img.getAttribute('src'),
+                title: title.textContent.trim(),
+                date: date ? date.textContent.trim() : ''
+            });
+        }
+    });
+
+    return badges;
+}
+
+function extractPoints(html) {
+    const match = html.match(/<strong>(\d[\d,.]*) points?<\/strong>/i);
+    return match ? match[1] : null;
+}
+
+function updateGoogleSkillsUI(badges, points) {
+    const grid = document.getElementById('google-badges-grid');
+    const pointsEl = document.getElementById('google-points');
+    const infoEl = document.getElementById('google-update-info');
+
+    if (points && pointsEl) {
+        pointsEl.textContent = points + ' pontos';
+    }
+
+    if (badges && badges.length > 0 && grid) {
+        grid.innerHTML = '';
+        badges.forEach(badge => {
+            const card = document.createElement('div');
+            card.className = 'badge-card';
+            card.innerHTML = `
+                <img src="${badge.imgSrc}" alt="${badge.title}" loading="lazy">
+                <h4>${badge.title}</h4>
+                <span class="badge-date">${badge.date}</span>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    if (infoEl) {
+        const now = new Date();
+        infoEl.textContent = 'Última atualização: ' + now.toLocaleString('pt-BR');
+    }
+}
+
+async function refreshGoogleSkills() {
+    const btn = document.getElementById('refresh-skills-btn');
+    const infoEl = document.getElementById('google-update-info');
+
+    if (location.protocol === 'file:') {
+        if (infoEl) {
+            infoEl.textContent = 'Abra via servidor HTTP (ex: VS Code Live Server) para atualizar.';
+            infoEl.style.color = '#e67e22';
+        }
+        return;
+    }
+
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Atualizando...';
+    }
+
+    try {
+        const response = await fetch(CORS_PROXY + encodeURIComponent(GOOGLE_SKILLS_PROFILE), {
+            signal: AbortSignal.timeout(15000)
+        });
+        const html = await response.text();
+
+        const badges = extractBadges(html);
+        const points = extractPoints(html);
+
+        updateGoogleSkillsUI(badges, points);
+    } catch (err) {
+        if (infoEl) {
+            infoEl.textContent = 'Não foi possível atualizar automaticamente. Verifique sua conexão.';
+            infoEl.style.color = '#e74c3c';
+        }
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-sync-alt"></i> Atualizar Badges';
+        }
+    }
+}
+
+// Try auto-update on page load (silent, only via HTTP)
+document.addEventListener('DOMContentLoaded', () => {
+    if (location.protocol === 'file:') return;
+    setTimeout(() => {
+        fetch(CORS_PROXY + encodeURIComponent(GOOGLE_SKILLS_PROFILE), {
+            signal: AbortSignal.timeout(10000)
+        })
+            .then(r => r.text())
+            .then(html => {
+                const badges = extractBadges(html);
+                const points = extractPoints(html);
+                if (badges.length > 0) {
+                    updateGoogleSkillsUI(badges, points);
+                }
+            })
+            .catch(() => {});
+    }, 2000);
+});

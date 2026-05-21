@@ -110,6 +110,16 @@ nav .container {
     color: var(--primary-color);
 }
 
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: 0.25rem;
+}
+
 /* Hero Section */
 .hero {
     min-height: 100vh;
@@ -233,6 +243,134 @@ nav .container {
 
 .exp-card:hover {
     transform: translateX(10px);
+}
+
+.volunteer-collapsible {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(155, 89, 182, 0.12);
+    text-align: left;
+}
+
+.volunteer-collapsible-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    font-family: var(--font-main);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.7;
+    transition: var(--transition);
+}
+
+.volunteer-collapsible-btn:hover {
+    opacity: 1;
+}
+
+.volunteer-collapsible-btn .collapse-icon {
+    transition: transform 0.3s ease;
+    font-size: 0.8rem;
+}
+
+.volunteer-collapsible-btn.active .collapse-icon {
+    transform: rotate(180deg);
+}
+
+.volunteer-collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+.volunteer-collapsible-content.open {
+    max-height: 800px;
+    opacity: 1;
+}
+
+.volunteer-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    text-align: left;
+}
+
+.volunteer-info-card {
+    background: var(--section-bg);
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    border: 1px solid rgba(155, 89, 182, 0.06);
+    transition: var(--transition);
+}
+
+.volunteer-info-card:hover {
+    border-color: rgba(155, 89, 182, 0.2);
+}
+
+.volunteer-info-card h4 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    opacity: 0.75;
+}
+
+.volunteer-info-card h4 i {
+    font-size: 0.75rem;
+}
+
+.volunteer-info-card p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.volunteer-results {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.volunteer-results li {
+    padding: 0.15rem 0;
+    padding-left: 1.1rem;
+    position: relative;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+.volunteer-results li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+.volunteer-info-card .project-languages {
+    gap: 0.3rem;
+    margin-bottom: 0;
+}
+
+.volunteer-info-card .lang-tag {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.6rem;
+    background: transparent;
+    border-color: rgba(155, 89, 182, 0.15);
 }
 
 .exp-header {
@@ -425,6 +563,126 @@ nav .container {
     }
 }
 
+/* Google Skills Section */
+.google-skills-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.google-skills-logo {
+    height: 48px;
+    margin-bottom: 1.5rem;
+    filter: grayscale(0.3);
+    transition: var(--transition);
+}
+
+.google-skills-logo:hover {
+    filter: grayscale(0);
+}
+
+.google-league-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.league-badge {
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+    color: #fff;
+    padding: 0.4rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.league-points {
+    background: var(--section-bg);
+    color: var(--primary-color);
+    padding: 0.4rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1px solid var(--primary-light);
+}
+
+.league-member {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.league-member i {
+    color: var(--primary-color);
+    margin-right: 0.3rem;
+}
+
+.google-badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.badge-card {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    text-align: center;
+    transition: var(--transition);
+    border: 1px solid rgba(155, 89, 182, 0.1);
+}
+
+.badge-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(155, 89, 182, 0.15);
+    border-color: var(--primary-color);
+}
+
+.badge-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+.badge-card h4 {
+    font-size: 0.85rem;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.badge-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: var(--section-bg);
+    padding: 0.2rem 0.8rem;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.google-skills-cta {
+    text-align: center;
+    margin-top: 2.5rem;
+}
+
+/* Portfolio preview image */
+.portfolio-preview {
+    width: 100%;
+    height: 160px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 1px solid #eee;
+    transition: var(--transition);
+}
+
+.portfolio-card:hover .portfolio-preview {
+    border-color: var(--primary-color);
+}
 /* Animations */
 .reveal {
     opacity: 0;
@@ -575,8 +833,36 @@ footer {
         font-size: 2.5rem;
     }
 
+    .nav-toggle {
+        display: block;
+    }
+
     .nav-links {
         display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+        gap: 0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 0.5rem 0;
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .nav-links li {
+        width: 100%;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 0.8rem 2rem;
+        border-bottom: 1px solid rgba(155, 89, 182, 0.08);
     }
 
     .exp-header {

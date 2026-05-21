@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +16,85 @@
 
     <!-- Seu CSS -->
     <link rel="stylesheet" href="style.css">
+    <style>
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 1000;
+            border-bottom: 1px solid #eee;
+            padding: 1rem 0;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #9b59b6;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .nav-links a:hover {
+            color: #9b59b6;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #9b59b6;
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background: rgba(255, 255, 255, 0.98);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 0.8rem 2rem;
+                border-bottom: 1px solid rgba(155, 89, 182, 0.08);
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -21,14 +103,18 @@
     <nav>
         <div class="container">
             <a href="#" class="logo">Mariana Ferreira </a>
-            <ul class="nav-links">
-                <li><a href="#sobre">Sobre</a></li>
-                <li><a href="#experiencia">Experiência</a></li>
-                <li><a href="#formacao">Formação</a></li>
-                <li><a href="#cursos">Cursos</a></li>
-                <li><a href="#portfolio-github">Portfólio</a></li>
-                <li><a href="#projetos">Voluntariado</a></li>
-                <li><a href="#habilidades">Habilidades</a></li>
+            <button class="nav-toggle" onclick="toggleNav()" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#sobre" onclick="closeNav()">Sobre</a></li>
+                <li><a href="#experiencia" onclick="closeNav()">Experiência</a></li>
+                <li><a href="#formacao" onclick="closeNav()">Formação</a></li>
+                <li><a href="#cursos" onclick="closeNav()">Cursos</a></li>
+                <li><a href="#google-skills" onclick="closeNav()">Google Skills</a></li>
+                <li><a href="#portfolio-github" onclick="closeNav()">Portfólio</a></li>
+                <li><a href="#projetos" onclick="closeNav()">Voluntariado</a></li>
+                <li><a href="#habilidades" onclick="closeNav()">Habilidades</a></li>
             </ul>
         </div>
     </nav>
@@ -214,8 +300,12 @@
                     <p>Concluído em 05/2026</p>
                 </div>
                 <div class="timeline-item">
+                    <h4>Fundamentos de Inteligência Artificial Generativa - Google Cloud </h4>
+                    <p>Concluído em 05/2026</p>
+                </div>
+                <div class="timeline-item">
                     <h4>Programação em Inteligência Artificial Generativa</h4>
-                    <p><span class="exp-date">Em curso</span></p>
+                    <p>Concluído em 05/2026</p>
                 </div>
                 <div class="timeline-item">
                     <h4>Inteligências Artificiais Generativas Aplicada a Programação ChatGPT</h4>
@@ -227,9 +317,87 @@
                 </div>
                 <div class="timeline-item" style="border-left: 5px solid #2ecc71;">
                     <h4><i class="fas fa-plane-departure"></i> Intercâmbio em Dublin</h4>
-                    <p>Experiência Internacional</p>
+                    <p>Experiência Internacional - (06-09/2025)</p>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Google Skills -->
+    <section id="google-skills" style="background-color: var(--bg-color);">
+        <div class="container">
+            <h2 class="section-title reveal">Google Skills</h2>
+            <div class="google-skills-header reveal">
+                <img src="https://cdn.qwiklabs.com/lqJbxogu4tSLez1OvjDcIO8rwow6cPLwvrfIdmQLf6U%3D" alt="Google Skills"
+                    class="google-skills-logo">
+                <div class="google-league-info">
+                    <span class="league-badge"><i class="fas fa-trophy"></i> Silver League</span>
+                    <span class="league-points" id="google-points">942 pontos</span>
+                    <span class="league-member"><i class="fas fa-calendar-alt"></i> Membro desde 2026</span>
+                </div>
+            </div>
+            <div class="google-badges-grid reveal" id="google-badges-grid">
+                <div class="badge-card">
+                    <img src="https://cdn.qwiklabs.com/s%2Bt8Rq51dpmm1NuT8AaCfU%2B%2FU3fyfFr%2Bj97mkOMADSw%3D"
+                        alt="Introduction to Generative AI">
+                    <h4>Introduction to Generative AI</h4>
+                    <span class="badge-date">Mai 2026</span>
+                </div>
+                <div class="badge-card">
+                    <img src="https://cdn.qwiklabs.com/w08Qy7b1VOOPaieflHPtrilBC6kuMyrY9Vvs2BbZndE%3D"
+                        alt="Vibe Coding: From Zero to App">
+                    <h4>Vibe Coding: From Zero to App</h4>
+                    <span class="badge-date">Mai 2026</span>
+                </div>
+                <div class="badge-card">
+                    <img src="https://cdn.qwiklabs.com/Ec0TSJNh7EFrWqYCyCJQmcuEeXh2KQhWIhYkMv3SuYs%3D"
+                        alt="Gemini for Application Developers">
+                    <h4>Gemini for Application Developers</h4>
+                    <span class="badge-date">Mai 2026</span>
+                </div>
+                <div class="badge-card">
+                    <img src="https://cdn.qwiklabs.com/%2B3tuCf243J1n2YcrXrfRhki%2B2Do9yvQmcRLlhBQavaE%3D"
+                        alt="Build Real World AI Applications with Gemini and Imagen">
+                    <h4>Build Real World AI Apps</h4>
+                    <span class="badge-date">Abr 2026</span>
+                </div>
+                <div class="badge-card">
+                    <img src="https://cdn.qwiklabs.com/t4Vyd0250OhVFGGU1czJ5PzqNd%2F9RJAQYuCvTT24qVU%3D"
+                        alt="Introduction to AI Agents">
+                    <h4>Introduction to AI Agents</h4>
+                    <span class="badge-date">Abr 2026</span>
+                </div>
+                <div class="badge-card">
+                    <img src="https://cdn.qwiklabs.com/DIDTWk63TIYxcgBhimChnZKY5D8p2Fimh9O4mxDfw%2BA%3D"
+                        alt="Introduction to Large Language Models">
+                    <h4>Introduction to Large Language Models</h4>
+                    <span class="badge-date">Mai 2026</span>
+                </div>
+                <div class="badge-card">
+                    <img src="https://cdn.qwiklabs.com/bGIorWHqx1x%2FNn3d4bA68%2BS99R2U4EBZf24s8%2BJr27o%3D"
+                        alt="Introduction to Responsible AI">
+                    <h4>Introduction to Responsible AI</h4>
+                    <span class="badge-date">Mai 2026</span>
+                </div>
+                <div class="badge-card">
+                    <img src="https://cdn.qwiklabs.com/fmjtMzJsG%2B06ffyMbf6%2BcXstOaajIwCND2kU4EZE2hY%3D"
+                        alt="Responsible AI: Applying AI Principles with Google Cloud">
+                    <h4>Responsible AI: Applying AI Principles</h4>
+                    <span class="badge-date">Mai 2026</span>
+                </div>
+            </div>
+            <div class="google-skills-cta reveal"
+                style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="https://www.skills.google/public_profiles/8fea051f-9ecf-4ca9-afc0-d78c95c6553e" target="_blank"
+                    class="btn-github">
+                    <i class="fas fa-external-link-alt"></i> Ver Perfil Completo
+                </a>
+                <button onclick="refreshGoogleSkills()" class="btn-demo" id="refresh-skills-btn">
+                    <i class="fas fa-sync-alt"></i> Atualizar Badges
+                </button>
+            </div>
+            <p id="google-update-info"
+                style="text-align: center; margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);"></p>
         </div>
     </section>
 
@@ -242,16 +410,22 @@
                 <!-- TechSupport Pro -->
                 <div class="portfolio-card reveal">
                     <div class="portfolio-icon"><i class="fas fa-headset"></i></div>
-                    <h3>TechSupport Pro - Enterprise Console</h3>
-                    <p>Sistema moderno de gerenciamento de chamados técnicos, construído com Vanilla JS e integrado com
-                        Supabase para persistência de dados em tempo real.</p>
+                    <img src="assets/preview-suporte.png" alt="Preview Sistema de Chamados" class="portfolio-preview">
+                    <h3>Sistema de Chamados Técnicos</h3>
+                    <p>Controle operacional completo com acompanhamento de status, gestão de prioridades e organização
+                        de
+                        demandas em tempo real. Integrado com Supabase.</p>
                     <div class="project-languages">
                         <span class="lang-tag">HTML5</span>
                         <span class="lang-tag">CSS3</span>
                         <span class="lang-tag">JavaScript</span>
                         <span class="lang-tag">SQL</span>
+                        <span class="lang-tag">Supabase</span>
                     </div>
                     <div class="portfolio-btns">
+                        <a href="https://suporte-tecnico-lemon.vercel.app" target="_blank" class="btn-demo">
+                            <i class="fas fa-external-link-alt"></i> Ver Demo
+                        </a>
                         <a href="https://github.com/maryreginaf15/SUPORTE_TECNICO" target="_blank" class="btn-github">
                             <i class="fab fa-github"></i> Repositório
                         </a>
@@ -261,6 +435,7 @@
                 <!-- Jogo MegaMania -->
                 <div class="portfolio-card reveal">
                     <div class="portfolio-icon"><i class="fas fa-gamepad"></i></div>
+                    <img src="assets/preview-megamania.png" alt="Preview Jogo MegaMania" class="portfolio-preview">
                     <h3>Jogo MegaMania</h3>
                     <p>Remake do clássico jogo arcade MegaMania, desenvolvido com foco em lógica de programação e
                         interface gráfica.</p>
@@ -273,24 +448,31 @@
                         <a href="https://jgmegamania.netlify.app/" target="_blank" class="btn-demo">
                             <i class="fas fa-external-link-alt"></i> Ver Demo
                         </a>
-                        <a href="https://github.com/maryreginaf15/jogoremake-megamania" target="_blank" class="btn-github">
+                        <a href="https://github.com/maryreginaf15/jogoremake-megamania" target="_blank"
+                            class="btn-github">
                             <i class="fab fa-github"></i> GitHub
                         </a>
                     </div>
                 </div>
 
-                <!-- Lista de Tarefa -->
+                <!-- Task Flow / Lista de Tarefas -->
                 <div class="portfolio-card reveal">
                     <div class="portfolio-icon"><i class="fas fa-tasks"></i></div>
-                    <h3>Lista de Tarefa</h3>
-                    <p>Aplicação prática para gerenciamento de tarefas diárias, focada em organização e usabilidade
-                        simples.</p>
+                    <img src="assets/preview-taskflow.png" alt="Preview Task Flow" class="portfolio-preview">
+                    <h3>Task Flow - Lista de Tarefas</h3>
+                    <p>Aplicação moderna de gestão de tarefas com autenticação de usuários, CRUD completo e
+                        persistência de dados por perfil. Construído com React + Supabase.</p>
                     <div class="project-languages">
-                        <span class="lang-tag">HTML5</span>
-                        <span class="lang-tag">CSS3</span>
-                        <span class="lang-tag">JavaScript</span>
+                        <span class="lang-tag">React</span>
+                        <span class="lang-tag">TypeScript</span>
+                        <span class="lang-tag">Tailwind</span>
+                        <span class="lang-tag">Supabase</span>
                     </div>
                     <div class="portfolio-btns">
+                        <a href="https://lista-de-tarefas-rdbw94oj9-maryreginaf8-6284s-projects.vercel.app/"
+                            target="_blank" class="btn-demo">
+                            <i class="fas fa-external-link-alt"></i> Ver Demo
+                        </a>
                         <a href="https://github.com/maryreginaf15/lista-de-tarefas" target="_blank" class="btn-github">
                             <i class="fab fa-github"></i> Repositório
                         </a>
@@ -317,16 +499,45 @@
                 <!-- Site Web Fono -->
                 <div class="portfolio-card reveal">
                     <div class="portfolio-icon"><i class="fas fa-user-md"></i></div>
-                    <h3>Site Web Fono</h3>
-                    <p>Site profissional desenvolvido para a área de fonoaudiologia, com foco em design responsivo e
-                        acessibilidade.</p>
+                    <img src="assets/preview-fono.png" alt="Preview P1Fono" class="portfolio-preview">
+                    <h3>P1Fono - Plataforma Web</h3>
+                    <p>Site profissional para fonoaudiologia com interface moderna, responsiva e acessível. HTML, CSS e
+                        JavaScript puro com foco em experiência do usuário.</p>
                     <div class="project-languages">
                         <span class="lang-tag">HTML5</span>
                         <span class="lang-tag">CSS3</span>
                         <span class="lang-tag">JavaScript</span>
                     </div>
                     <div class="portfolio-btns">
-                        <a href="https://github.com/maryreginaf15/p1fono-maryreginaf-2602" target="_blank"
+                        <a href="https://maryreginaf15.github.io/p1fono-maryreginaf" target="_blank" class="btn-demo">
+                            <i class="fas fa-external-link-alt"></i> Ver Demo
+                        </a>
+                        <a href="https://github.com/maryreginaf15/p1fono-maryreginaf" target="_blank"
+                            class="btn-github">
+                            <i class="fab fa-github"></i> Repositório
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Classificando Atendimento Hospitalar -->
+                <div class="portfolio-card reveal">
+                    <div class="portfolio-icon"><i class="fas fa-hospital"></i></div>
+                    <h3>Classificando Atendimento Hospitalar</h3>
+                    <p>Sistema de classificação para atendimento hospitalar, otimizando a triagem e organização de
+                        pacientes.</p>
+                    <div class="project-languages">
+                        <span class="lang-tag">HTML5</span>
+                        <span class="lang-tag">CSS3</span>
+                        <span class="lang-tag">Python</span>
+                        <span class="lang-tag">Render</span>
+                        <span class="lang-tag">OpenRouter</span>
+                    </div>
+                    <div class="portfolio-btns">
+                        <a href="https://classificando-atendimento-hospitalar.onrender.com" target="_blank"
+                            class="btn-demo">
+                            <i class="fas fa-external-link-alt"></i> Ver Demo
+                        </a>
+                        <a href="https://github.com/maryreginaf15/classificando_atendimento_hospitalar" target="_blank"
                             class="btn-github">
                             <i class="fab fa-github"></i> Repositório
                         </a>
@@ -349,6 +560,45 @@
                 <p style="margin-top: 1rem;">Atuação na área de Front-End, com foco na melhoria do design e na criação
                     de soluções que gerem impacto positivo para jovens das periferias.
                 </p>
+                <div class="volunteer-collapsible">
+                    <button class="volunteer-collapsible-btn" onclick="toggleCarteirinha()" aria-expanded="false">
+                        <span><i class="fas fa-id-card"></i> Carteirinha Digital — Alunos</span>
+                        <i class="fas fa-chevron-down collapse-icon"></i>
+                    </button>
+                    <div class="volunteer-collapsible-content" id="carteirinha-content">
+                        <div class="volunteer-info-grid">
+                            <div class="volunteer-info-card">
+                                <h4><i class="fas fa-bullseye"></i> Objetivo</h4>
+                                <p>Criar uma carteirinha digital para facilitar a autenticação e identificação dos
+                                    estudantes</p>
+                            </div>
+                            <div class="volunteer-info-card">
+                                <h4><i class="fas fa-tools"></i> Ferramentas</h4>
+                                <div class="project-languages" style="justify-content: center;">
+                                    <span class="lang-tag">HTML</span>
+                                    <span class="lang-tag">CSS</span>
+                                    <span class="lang-tag">JS</span>
+                                    <span class="lang-tag">GitHub</span>
+                                    <span class="lang-tag">AWS</span>
+                                </div>
+                            </div>
+                            <div class="volunteer-info-card">
+                                <h4><i class="fas fa-lightbulb"></i> Insights</h4>
+                                <p>Foi identificada a necessidade de uma interface simples, responsiva e acessível pelo
+                                    celular.</p>
+                            </div>
+                            <div class="volunteer-info-card">
+                                <h4><i class="fas fa-chart-line"></i> Resultados</h4>
+                                <ul class="volunteer-results">
+                                    <li>Melhoria na identificação dos alunos</li>
+                                    <li>Validação rápida via QR Code</li>
+                                    <li>Processo mais seguro e organizado</li>
+                                    <li>Facilidade via PDF</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
     </section> <!-- projetos -->
     <!-- Habilidades Section -->
