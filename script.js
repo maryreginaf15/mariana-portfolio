@@ -66,7 +66,16 @@ function closeNav() {
 // Toggle Carteirinha Digital accordion
 function toggleCarteirinha() {
     const content = document.getElementById('carteirinha-content');
-    const btn = document.querySelector('.volunteer-collapsible-btn');
+    const btn = document.getElementById('carteirinha-btn');
+    content.classList.toggle('open');
+    btn.classList.toggle('active');
+    btn.setAttribute('aria-expanded', content.classList.contains('open'));
+}
+
+// Toggle Faltas-Alunos accordion
+function toggleFaltasAlunos() {
+    const content = document.getElementById('faltas-alunos-content');
+    const btn = document.getElementById('faltas-alunos-btn');
     content.classList.toggle('open');
     btn.classList.toggle('active');
     btn.setAttribute('aria-expanded', content.classList.contains('open'));
@@ -190,3 +199,109 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(() => {});
     }, 2000);
 });
+
+// ==========================================
+// Lógica da Galeria e Lightbox (Carteirinhas)
+// ==========================================
+
+// Array contendo a sequência exata de imagens das carteirinhas
+const carteirinhaImages = [
+    'assets/01.JPG',
+    'assets/02.JPG',
+    'assets/03.JPG',
+    'assets/04.JPG',
+    'assets/05.JPG',
+    'assets/06.JPG',
+    'assets/07.PNG',
+    'assets/08.JPG'
+];
+
+let currentLightboxIndex = 0;
+
+// Rolagem suave do carrossel horizontal de miniaturas
+function scrollGallery(direction) {
+    const track = document.getElementById('carteirinha-gallery');
+    if (track) {
+        // Rola 240px em média (cerca de duas miniaturas por clique)
+        const scrollAmount = 240 * direction;
+        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+}
+
+// Abrir a imagem em tela cheia (modal Lightbox)
+function openLightbox(index) {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const captionText = document.getElementById('lightbox-caption');
+    
+    if (lightbox && lightboxImg) {
+        currentLightboxIndex = index;
+        lightboxImg.src = carteirinhaImages[index];
+        if (captionText) {
+            captionText.innerHTML = `Tela ${index + 1} de ${carteirinhaImages.length}`;
+        }
+        lightbox.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Evita rolagem da página de fundo
+    }
+}
+
+// Fechar o visualizador de imagens
+function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox) {
+        lightbox.style.display = 'none';
+        document.body.style.overflow = ''; // Restaura a rolagem da página
+    }
+}
+
+// Navegar entre as fotos dentro do lightbox
+function changeLightboxImage(direction) {
+    currentLightboxIndex += direction;
+    if (currentLightboxIndex >= carteirinhaImages.length) {
+        currentLightboxIndex = 0; // Volta para o início
+    } else if (currentLightboxIndex < 0) {
+        currentLightboxIndex = carteirinhaImages.length - 1; // Vai para o fim
+    }
+    
+    const lightboxImg = document.getElementById('lightbox-img');
+    const captionText = document.getElementById('lightbox-caption');
+    if (lightboxImg) {
+        // Efeito rápido de fade ao trocar de imagem
+        lightboxImg.style.opacity = '0.3';
+        setTimeout(() => {
+            lightboxImg.src = carteirinhaImages[currentLightboxIndex];
+            if (captionText) {
+                captionText.innerHTML = `Tela ${currentLightboxIndex + 1} de ${carteirinhaImages.length}`;
+            }
+            lightboxImg.style.opacity = '1';
+        }, 100);
+    }
+}
+
+// Ouvintes de evento adicionais para interatividade amigável
+document.addEventListener('DOMContentLoaded', () => {
+    const lightbox = document.getElementById('lightbox');
+    
+    // Fechar lightbox ao clicar fora da imagem
+    if (lightbox) {
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target.classList.contains('lightbox-content-container')) {
+                closeLightbox();
+            }
+        });
+    }
+    
+    // Suporte ao teclado (Esc para fechar, setas para navegar)
+    document.addEventListener('keydown', (e) => {
+        if (lightbox && lightbox.style.display === 'flex') {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            } else if (e.key === 'ArrowLeft') {
+                changeLightboxImage(-1);
+            } else if (e.key === 'ArrowRight') {
+                changeLightboxImage(1);
+            }
+        }
+    });
+});
+

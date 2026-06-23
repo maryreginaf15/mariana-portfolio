@@ -554,9 +554,9 @@
                 <p>Voluntária na área de Sistemas e Suporte Digital</p>
                 <p style="margin-top: 1rem;"> Atuação no desenvolvimento de interfaces web para projetos sociais e
                     educacionais, contribuindo com construção de layouts responsivos e colaboração em iniciativas
-                    digitais com foco em organização visual e melhoria dos alunos.
+                    digitais com foco em organização visual e melhoria dos alunos. </p>
                 <div class="volunteer-collapsible">
-                    <button class="volunteer-collapsible-btn" onclick="toggleCarteirinha()" aria-expanded="false">
+                    <button class="volunteer-collapsible-btn" id="carteirinha-btn" onclick="toggleCarteirinha()" aria-expanded="false">
                         <span><i class="fas fa-id-card"></i> Carteirinha Digital — Alunos</span>
                         <i class="fas fa-chevron-down collapse-icon"></i>
                     </button>
@@ -589,6 +589,87 @@
                                     <li>Validação rápida via QR Code</li>
                                     <li>Processo mais seguro e organizado</li>
                                     <li>Facilidade via PDF</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Galeria de Telas Desenvolvidas (Carteirinhas) -->
+                        <div class="volunteer-gallery-section">
+                            <h4><i class="fas fa-images"></i> Telas Desenvolvidas</h4>
+                            <div class="gallery-wrapper">
+                                <button class="gallery-nav-btn prev" onclick="scrollGallery(-1)" aria-label="Imagem anterior">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <div class="gallery-track" id="carteirinha-gallery">
+                                    <div class="gallery-item" onclick="openLightbox(0)">
+                                        <img src="assets/01.JPG" alt="Tela 01" loading="lazy">
+                                    </div>
+                                    <div class="gallery-item" onclick="openLightbox(1)">
+                                        <img src="assets/02.JPG" alt="Tela 02" loading="lazy">
+                                    </div>
+                                    <div class="gallery-item" onclick="openLightbox(2)">
+                                        <img src="assets/03.JPG" alt="Tela 03" loading="lazy">
+                                    </div>
+                                    <div class="gallery-item" onclick="openLightbox(3)">
+                                        <img src="assets/04.JPG" alt="Tela 04" loading="lazy">
+                                    </div>
+                                    <div class="gallery-item" onclick="openLightbox(4)">
+                                        <img src="assets/05.JPG" alt="Tela 05" loading="lazy">
+                                    </div>
+                                    <div class="gallery-item" onclick="openLightbox(5)">
+                                        <img src="assets/06.JPG" alt="Tela 06" loading="lazy">
+                                    </div>
+                                    <div class="gallery-item" onclick="openLightbox(6)">
+                                        <img src="assets/07.PNG" alt="Tela 07" loading="lazy">
+                                    </div>
+                                    <div class="gallery-item" onclick="openLightbox(7)">
+                                        <img src="assets/08.JPG" alt="Tela 08" loading="lazy">
+                                    </div>
+                                </div>
+                                <button class="gallery-nav-btn next" onclick="scrollGallery(1)" aria-label="Próxima imagem">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="volunteer-collapsible" style="margin-top: 1rem;">
+                    <button class="volunteer-collapsible-btn" id="faltas-alunos-btn" onclick="toggleFaltasAlunos()" aria-expanded="false">
+                        <span><i class="fas fa-clipboard-user"></i> Faltas-Alunos — Registro de Frequência</span>
+                        <i class="fas fa-chevron-down collapse-icon"></i>
+                    </button>
+                    <div class="volunteer-collapsible-content" id="faltas-alunos-content">
+                        <div class="volunteer-info-grid">
+                            <div class="volunteer-info-card">
+                                <h4><i class="fas fa-bullseye"></i> Objetivo</h4>
+                                <p>Desenvolver uma interface intuitiva para o lançamento de faltas e presenças pelos professores, integrada ao Portal do Aluno, facilitando o registro e a consulta das informações acadêmicas.</p>
+                            </div>
+                            <div class="volunteer-info-card">
+                                <h4><i class="fas fa-tools"></i> Ferramentas</h4>
+                                <div class="project-languages" style="justify-content: center;">
+                                    <span class="lang-tag">HTML</span>
+                                    <span class="lang-tag">CSS</span>
+                                    <span class="lang-tag">JS</span>
+                                    <span class="lang-tag">GitHub</span>
+                                </div>
+                            </div>
+                            <div class="volunteer-info-card">
+                                <h4><i class="fas fa-lightbulb"></i> Insights</h4>
+                                <ul class="volunteer-results">
+                                    <li>Necessidade de centralizar o lançamento de faltas em uma interface mais amigável</li>
+                                    <li>Redução da dependência de planilhas e arquivos armazenados manualmente</li>
+                                    <li>Melhor experiência para professores e administradores</li>
+                                    <li>Consulta mais simples das faltas pelos alunos através do portal</li>
+                                </ul>
+                            </div>
+                            <div class="volunteer-info-card">
+                                <h4><i class="fas fa-chart-line"></i> Resultados</h4>
+                                <ul class="volunteer-results">
+                                    <li>Processo de lançamento de faltas mais rápido e organizado</li>
+                                    <li>Menor ocorrência de erros de preenchimento</li>
+                                    <li>Melhor visualização das informações pelos professores</li>
+                                    <li>Integração das informações de frequência ao Portal do Aluno</li>
+                                    <li>Interface preparada para futura integração com um sistema de Back-end mais seguro</li>
                                 </ul>
                             </div>
                         </div>
@@ -735,6 +816,17 @@
                     style="color: var(--primary-color);"></i> para o mundo.</p>
         </div>
     </footer>
+
+    <!-- Lightbox Modal para Galeria -->
+    <div id="lightbox" class="lightbox-modal">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <button class="lightbox-nav lightbox-prev" onclick="changeLightboxImage(-1)" aria-label="Imagem anterior">&#10094;</button>
+        <button class="lightbox-nav lightbox-next" onclick="changeLightboxImage(1)" aria-label="Próxima imagem">&#10095;</button>
+        <div class="lightbox-content-container">
+            <img class="lightbox-content" id="lightbox-img" alt="Visualização ampliada">
+            <div id="lightbox-caption"></div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
